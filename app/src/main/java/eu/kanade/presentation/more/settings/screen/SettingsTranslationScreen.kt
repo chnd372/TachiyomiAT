@@ -25,6 +25,7 @@ object SettingsTranslationScreen : SearchableSettings {
     override fun getPreferences(): List<Preference> {
         val entries = TranslationFont.entries
         val translationPreferences = remember { Injekt.get<TranslationPreferences>() }
+        val currentEngine = TextTranslators.fromPref(translationPreferences.translationEngine())
         return listOf(
             Preference.PreferenceItem.SwitchPreference(
                 pref = translationPreferences.autoTranslateAfterDownload(),
@@ -37,7 +38,11 @@ object SettingsTranslationScreen : SearchableSettings {
             ),
             getTranslationLangGroup(translationPreferences),
             getTranslatioEngineGroup(translationPreferences),
-            getTranslatioAdvancedGroup(translationPreferences),
+            if (currentEngine == TextTranslators.CUSTOM) {
+                getCustomEngineGroup(translationPreferences)
+            } else {
+                getTranslatioAdvancedGroup(translationPreferences)
+            },
         )
     }
 
@@ -81,6 +86,34 @@ object SettingsTranslationScreen : SearchableSettings {
                     pref = translationPreferences.translationEngineApiKey(),
                     subtitle = stringResource(ATMR.strings.pref_sub_engine_api_key),
                     title = stringResource(ATMR.strings.pref_engine_api_key),
+                ),
+            ),
+        )
+    }
+
+    @Composable
+    private fun getCustomEngineGroup(
+        translationPreferences: TranslationPreferences,
+    ): Preference.PreferenceGroup {
+        return Preference.PreferenceGroup(
+            title = stringResource(ATMR.strings.pref_group_custom),
+            preferenceItems = persistentListOf(
+                Preference.PreferenceItem.EditTextPreference(
+                    pref = translationPreferences.translationEngineBaseUrl(),
+                    subtitle = stringResource(ATMR.strings.pref_sub_engine_base_url),
+                    title = stringResource(ATMR.strings.pref_engine_base_url),
+                ),
+                Preference.PreferenceItem.EditTextPreference(
+                    pref = translationPreferences.translationEngineModel(),
+                    title = stringResource(ATMR.strings.pref_engine_model),
+                ),
+                Preference.PreferenceItem.EditTextPreference(
+                    pref = translationPreferences.translationEngineTemperature(),
+                    title = stringResource(ATMR.strings.pref_engine_temperature),
+                ),
+                Preference.PreferenceItem.EditTextPreference(
+                    pref = translationPreferences.translationEngineMaxOutputTokens(),
+                    title = stringResource(ATMR.strings.pref_engine_max_output),
                 ),
             ),
         )
