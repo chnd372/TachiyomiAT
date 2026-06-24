@@ -14,6 +14,7 @@ class TranslationPreferences(
     fun translationEngine() = preferenceStore.getInt("translation_engine", 0)
     fun translationEngineModel() = preferenceStore.getString("translation_engine_model", "gemini-1.5-pro")
     fun translationEngineApiKey() = preferenceStore.getString("translation_engine_api_key", "")
+    fun translationEngineBaseUrl() = preferenceStore.getString("translation_engine_base_url", "https://api.openai.com/v1")
     fun translationEngineTemperature() = preferenceStore.getString("translation_engine_temperature", "1")
     fun translationEngineMaxOutputTokens() = preferenceStore.getString("translation_engine_output_tokens", "8192")
 }
