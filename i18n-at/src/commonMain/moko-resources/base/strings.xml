@@ -19,4 +19,7 @@
     <string name="pref_engine_model">LLM Model</string>
     <string name="pref_engine_temperature">LLM Temperature</string>
     <string name="pref_engine_max_output">LLM Max Output Token Count</string>
+    <string name="pref_group_custom">Custom Engine</string>
+    <string name="pref_sub_engine_base_url">OpenAI-compatible API endpoint (e.g. https://api.openai.com/v1)</string>
+    <string name="pref_engine_base_url">Base URL</string>
 </resources>
