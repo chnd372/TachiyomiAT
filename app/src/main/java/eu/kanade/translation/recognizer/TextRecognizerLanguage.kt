@@ -8,6 +8,7 @@ enum class TextRecognizerLanguage(var code: String, val label: String) {
     JAPANESE(TranslateLanguage.JAPANESE, "Japanese"),
     KOREAN(TranslateLanguage.KOREAN, "Korean"),
     ENGLISH(TranslateLanguage.ENGLISH, "English"),
+    SPANISH(TranslateLanguage.SPANISH, "Spanish"),
     ;
 
     companion object {
